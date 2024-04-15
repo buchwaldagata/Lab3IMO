@@ -13,7 +13,7 @@ public class HillClimbing {
     List<List<Integer>> solution;
     List<Integer> cycleA;
     List<Integer> cycleB;
-
+    List<List<Integer>> cycles;
     List<List<Integer>> distanceMatrix;
     double cycleALength= 0;
     double cycleBLength= 0;
@@ -24,18 +24,17 @@ public class HillClimbing {
 
     HillClimbing(Instance instance, RandomStart startingCycles){
         solution=new ArrayList<>();
-        Pair<List<Integer>,List<Integer>> cycles = startingCycles.getCycles();
-        cycleA = cycles.getKey();
-        cycleB = cycles.getValue();
+        cycles = startingCycles.getCycles();
+        cycleA = cycles.get(0);
+        cycleB = cycles.get(1);
         distanceMatrix = instance.getDistanceMatrix();
-        cycleALength = calcCycleLength(distanceMatrix, cycleA);
-        cycleBLength = calcCycleLength(distanceMatrix, cycleB);
+        cycleALength = calcCycleLength(cycleA);
+        cycleBLength = calcCycleLength(cycleB);
         bestCyclesLength = cycleALength + cycleBLength;
         solve();
-
     }
 
-    private double calcCycleLength(List<List<Integer>> distanceMatrix, List<Integer> solution){
+    private double calcCycleLength(List<Integer> solution){
         double length = 0;
         for(int i= 0; i<solution.size()-1; i++){
             length += distanceMatrix.get(solution.get(i)).get(solution.get(i+1));
@@ -53,9 +52,9 @@ public class HillClimbing {
 
     private Pair<Pair<Double,Double>,Pair<List<Integer>,List<Integer>>> getSolutionOutside(List<Integer> cycleOne, List<Integer> cycleTwo, int indexOne, int indexTwo){
         List<Integer> newCycleOne = swapVertexOutside(cycleOne, cycleTwo, indexOne, indexTwo);
-        double distanceOne = calcCycleLength(distanceMatrix, newCycleOne);
+        double distanceOne = calcCycleLength(newCycleOne);
         List<Integer> newCycleTwo = swapVertexOutside(cycleTwo, cycleOne, indexTwo, indexOne);
-        double distanceTwo = calcCycleLength(distanceMatrix, newCycleTwo);
+        double distanceTwo = calcCycleLength(newCycleTwo);
         Pair<Pair<Double,Double>,Pair<List<Integer>,List<Integer>>> result = new Pair<>(new Pair<>(distanceOne,distanceTwo), new Pair<>(newCycleOne,newCycleTwo));
         return result;
     }
@@ -67,7 +66,7 @@ public class HillClimbing {
         newCycle.addAll(cycle.subList(0,indexOne));
         newCycle.addAll(fragment);
         newCycle.addAll(cycle.subList(indexTwo+1,cycle.size()));
-        double distance = calcCycleLength(distanceMatrix, newCycle);
+        double distance = calcCycleLength(newCycle);
         return new Pair<>(distance, newCycle);
     }
 

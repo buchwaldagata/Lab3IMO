@@ -12,11 +12,11 @@ public class Main {
 
         long startTime = System.nanoTime();
 
-        List<HillClimbing> solutions = new ArrayList<HillClimbing>();
+        List<SearchMemory> solutions = new ArrayList<SearchMemory>();
 
-        for (int i = 0; i < 100; i++) {
+      for (int i = 0; i < 1; i++) {
         RandomStart startingCycles = new RandomStart();
-        solutions.add(new HillClimbing(kroB200, startingCycles));
+        solutions.add(new SearchMemory(kroB200, startingCycles));
         }
 
 
@@ -33,7 +33,7 @@ public class Main {
         }
 
         List<Double> criteriumValues=new ArrayList<>();
-        for (HillClimbing solution: solutions) {
+        for (SearchMemory solution: solutions) {
             criteriumValues.add(solution.getSolutionValue());
         }
         System.out.println(criteriumValues.stream().max(Double::compareTo));

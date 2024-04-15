@@ -1,5 +1,6 @@
 package org.example;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import javafx.util.Pair;
@@ -13,8 +14,8 @@ public class RandomStart {
         getRandomSolution();
     }
 
-    public Pair<List<Integer>,List<Integer>> getCycles(){
-        return new Pair<>(cycleA, cycleB);
+    public List<List<Integer>> getCycles(){
+        return new ArrayList<>(Arrays.asList(cycleA, cycleB));
     }
     private void getRandomSolution(){
         List<Integer> vertices = new ArrayList<>();
