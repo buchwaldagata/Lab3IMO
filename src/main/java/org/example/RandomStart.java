@@ -3,11 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import javafx.util.Pair;
 public class RandomStart {
 
-    private List<Integer> cycleA;
-    private List<Integer> cycleB;
+    private final List<Integer> cycleA;
+    private final List<Integer> cycleB;
     RandomStart(){
         cycleA=new ArrayList<>();
         cycleB=new ArrayList<>();
